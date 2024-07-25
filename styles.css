@@ -21,21 +21,31 @@ h1, h2, h3, p {
     color: white;
 }
 
-#start, #submit {
+#start, #submit, #score-btn, #again {
     background-color: blueviolet;
     border-radius: 20px;
     width: 200px;
-    height: 30px;
+    height: 40px;
 }
 
 #questions {
     display: none;
+    height: 300px;
+    width: 600px;
 }
 
 #a, #b, #c, #d {
     background-color: grey;
     border-radius: 20px;
     width: 200px;
-    height: 30px;
+    height: 40px;
 }
 
+.score {
+    font-size: 3em;
+    color: white;
+}
+
+#score-box, #again-box {
+    display: none;
+}
