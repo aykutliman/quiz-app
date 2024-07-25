@@ -1,0 +1,41 @@
+.container {
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid gray;
+}
+
+body {
+    background-color: rgb(56,60,84);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1, h2, h3, p {
+    color: white;
+}
+
+#start, #submit {
+    background-color: blueviolet;
+    border-radius: 20px;
+    width: 200px;
+    height: 30px;
+}
+
+#questions {
+    display: none;
+}
+
+#a, #b, #c, #d {
+    background-color: grey;
+    border-radius: 20px;
+    width: 200px;
+    height: 30px;
+}
+
