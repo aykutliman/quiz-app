@@ -30,7 +30,6 @@ quiz(); // bu tarz seyler saydfa sonunda olur
 
 // helpers functions
 // yardimci fonksiyonlari buraya disina tasi
-
 // main fonksiyon, ismi main olsun
 function quiz() {
   let i = 0; // i = 0 tanımlıyoruz. dizi içinde dolaşmak için.
