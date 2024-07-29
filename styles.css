@@ -21,16 +21,34 @@ button {
 }
 
 .container {
-  padding: 100px;
+  padding: 50px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   border: 1px solid gray;
+  align-items: center;
+  justify-content: center;
+}
+
+#q-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 200px;
+  align-items: center;
+  justify-content: center; 
+}
+
+#q-box {
+  display: flex;
+  flex-direction: column;
+  height: 175px;
+  align-items: center;
+  justify-content: center;
 }
 
 #start,
 #submit,
-#score-btn,
 #again {
   background-color: blueviolet;
   border-radius: 20px;
@@ -40,8 +58,17 @@ button {
 
 #questions {
   display: none;
-  height: 300px;
   width: 600px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+#que {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 #a,
@@ -59,7 +86,9 @@ button {
   color: white;
 }
 
-#score-box,
-#again-box {
+#score-box {
   display: none;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
