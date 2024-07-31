@@ -1,5 +1,0 @@
-butonlar querySelectorAll yapısı ile yakalandı.
-loadQ fonkuna i parametresi verildi.
-quizi sıfırlamak için yeni yardımcı fonk oluşturuldu.
-start ve submit eventleri için genel bir fonk tanımlandı.
-
