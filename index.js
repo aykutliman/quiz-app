@@ -1,143 +1,90 @@
 import { questions } from "./questions.js";
 
-// TODO: tek satirda butun butonlari yakala
-// style'lardan burada kurtul, css'de tek satirda coz
-const startButton = document.getElementById("start");
-startButton.style.cursor = "pointer";
+const [startButton, aButton, bButton, cButton, dButton, submitButton, againButton] = document.querySelectorAll("#start, #a, #b, #c, #d, #submit, #again");
 
-const aButton = document.getElementById("a");
-aButton.style.cursor = "pointer";
+let i = 0; // Soru indeksini tutar
+let score = 0; // Kullanıcının skorunu tutar
+let selectedAnswer = ""; // Kullanıcının seçtiği cevabı tutar
 
-const bButton = document.getElementById("b");
-bButton.style.cursor = "pointer";
+// Main fonksiyonunu başlat
+function main() {
+  setupEventListeners();
+}
 
-const cButton = document.getElementById("c");
-cButton.style.cursor = "pointer";
+// Buton renklerini sıfırlama fonksiyonu
+function resetColor() {
+  aButton.style.backgroundColor = "";
+  bButton.style.backgroundColor = "";
+  cButton.style.backgroundColor = "";
+  dButton.style.backgroundColor = "";
+}
 
-const dButton = document.getElementById("d");
-dButton.style.cursor = "pointer";
+// Soruyu yükleme fonksiyonu
+function loadQ(i) {
+  selectedAnswer = ""; // 1.sorudan sonraki sorular için.
+  document.getElementById("que").innerHTML = questions[i].question;
+  document.getElementById("q").innerHTML = `Question ${i + 1} of 10`;
+  aButton.innerHTML = questions[i].answers[0];
+  bButton.innerHTML = questions[i].answers[1];
+  cButton.innerHTML = questions[i].answers[2];
+  dButton.innerHTML = questions[i].answers[3];
+}
 
-const submitButton = document.getElementById("submit");
-submitButton.style.cursor = "pointer";
+// quizi sıfırlama fonksiyonu
+function resetQuiz() {
+  i = 0;
+  score = 0;
+  selectedAnswer = "";
+  resetColor();
+  document.getElementById("score-box").style.display = "none";
+  document.getElementById("main").style.display = "block";
+  document.getElementById("questions").style.display = "none";
+  loadQ(i);
+}
 
-const scoreButton = document.getElementById("score-btn");
-scoreButton.style.cursor = "pointer";
-
-const againButton = document.getElementById("again");
-againButton.style.cursor = "pointer";
-
-quiz(); // bu tarz seyler saydfa sonunda olur
-
-// helpers functions
-// yardimci fonksiyonlari buraya disina tasi
-// main fonksiyon, ismi main olsun
-function quiz() {
-  let i = 0; // i = 0 tanımlıyoruz. dizi içinde dolaşmak için.
-  let score = 0; // score değişkeni.
-  let selectedAnswer = ""; // seçilen cevap.
-
-  // butona tıklandığı zaman başlık gizleniyor sorular geliyor.
+// Event listener'ları tanımla
+function setupEventListeners() {
+  // Başlangıç butonuna tıklama olayları
   startButton.addEventListener("click", () => {
     document.getElementById("main").style.display = "none";
     document.getElementById("questions").style.display = "block";
-    loadQ(); // soruları getiren fonk. aşağıda tanımlandı.
+    loadQ(i);
   });
 
-  // buton renklerini sıfırlama fonksiyonu
-  function resetColor() {
-    aButton.style.backgroundColor = "";
-    bButton.style.backgroundColor = "";
-    cButton.style.backgroundColor = "";
-    dButton.style.backgroundColor = "";
-  }
-
-  //   TODO: tek satirda yazmaya calis, fonksiyonda yapabilirsin
-  // function selectedAnswer(button, index) {
-  //     selectedAnswer = questions[i].answers[index];
-  //     resetColor();
-  //     button.style.backgroundColor = "green";
-  // }
-  // şıklara tıklama olayları.
-  aButton.addEventListener("click", () => {
-    selectedAnswer = questions[i].answers[0];
+  // Şıklara tıklama olayları
+  [aButton, bButton, cButton, dButton].forEach((button, index) => button.addEventListener("click", () => {
+    selectedAnswer = questions[i].answers[index];
     resetColor();
-    aButton.style.backgroundColor = "green";
-  });
+    button.style.backgroundColor = "green";
+  }));
 
-  bButton.addEventListener("click", () => {
-    selectedAnswer = questions[i].answers[1];
-    resetColor();
-    bButton.style.backgroundColor = "green";
-  });
-
-  cButton.addEventListener("click", () => {
-    selectedAnswer = questions[i].answers[2];
-    resetColor();
-    cButton.style.backgroundColor = "green";
-  });
-
-  dButton.addEventListener("click", () => {
-    selectedAnswer = questions[i].answers[3];
-    resetColor();
-    dButton.style.backgroundColor = "green";
-  });
-
-  // kaydet butonu olayları.
+  // Submit butonuna tıklama olayları
   submitButton.addEventListener("click", () => {
     if (selectedAnswer === "") {
-      alert("please mark the answer.");
+      alert("Please mark the answer.");
     } else {
       resetColor();
-      // cevabın doğruluğunu kontrol eder.
+      // Cevabın doğruluğunu kontrol et
       if (selectedAnswer === questions[i].correct) {
         score++;
       }
 
-      // soru sayısı kadar yükleme yapar.
+      // Soruların bitip bitmediğini kontrol et
       if (i < 9) {
         i++;
-        loadQ();
+        loadQ(i); // Sonraki soruyu yükle
       } else {
-        i++;
-
-        if (i === 10) {
-          document.getElementById("main").style.display = "none";
-          document.getElementById("questions").style.display = "none";
-          document.getElementById("again-box").style.display = "none";
-          document.getElementById("score-box").style.display = "block";
-        }
+        document.getElementById("main").style.display = "none";
+        document.getElementById("questions").style.display = "none";
+        document.getElementById("score-box").style.display = "block";
+        document.getElementById("score-title").innerHTML = `Your score is ${score} out of 10.`;
       }
     }
   });
 
-  scoreButton.addEventListener("click", () => {
-    document.getElementById("main").style.display = "none";
-    document.getElementById("questions").style.display = "none";
-    document.getElementById("score-box").style.display = "block";
-    document.getElementById(
-      "score-title"
-    ).innerHTML = `Your score is ${score} out of 10.`;
-    document.getElementById("score-btn").style.display = "none";
-    document.getElementById("again-box").style.display = "block";
-  });
-
-  // soru yükleme fonsiyonu
-  function loadQ() {
-    document.getElementById("que").innerHTML = questions[i].question;
-    document.getElementById("q").innerHTML = `Question ${i + 1} of 10`;
-    aButton.innerHTML = questions[i].answers[0];
-    bButton.innerHTML = questions[i].answers[1];
-    cButton.innerHTML = questions[i].answers[2];
-    dButton.innerHTML = questions[i].answers[3];
-    selectedAnswer = "";
-  }
-
-  againButton.addEventListener("click", () => {
-    document.getElementById("score-box").style.display = "none";
-    document.getElementById("again-box").style.display = "none";
-    document.getElementById("main").style.display = "block";
-    document.getElementById("score-title").innerHTML = "Find out your score";
-    document.getElementById("score-btn").style.display = "block";
-    quiz();
-  });
+  // Tekrar butonuna tıklama olayları
+  againButton.addEventListener("click", resetQuiz);
 }
+
+// İlk yüklemede main fonksiyonunu çağır
+main();
